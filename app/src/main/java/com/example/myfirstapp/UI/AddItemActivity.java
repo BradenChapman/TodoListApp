@@ -35,8 +35,8 @@ public class AddItemActivity extends AppCompatActivity {
         String description = descriptionField.getText().toString();
         String dueDate = dueDateField.getText().toString();
 
-        TodoListItem item = new TodoListItem(title, description, dueDate);
-        viewModel.addTodoListItem(item);
+        //TodoListItem item = new TodoListItem(title, description, dueDate);
+        //viewModel.addTodoListItem(item);
 
         finish();
 

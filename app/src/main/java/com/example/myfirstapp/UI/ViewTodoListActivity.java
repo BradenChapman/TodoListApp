@@ -1,42 +1,36 @@
 package com.example.myfirstapp.UI;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
+import com.example.myfirstapp.Model.TodoListItem;
 import com.example.myfirstapp.R;
+
+import java.util.List;
 
 
 public class ViewTodoListActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private ItemAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private TodoListViewModel viewModel;
+    private TodoListViewModel todoListViewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_todolist);
-        recyclerView = findViewById(R.id.item_recycler_view);
 
-
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = new ItemAdapter();
-        recyclerView.setAdapter(adapter);
-
-        viewModel = ViewModelProviders.of(this).get(TodoListViewModel.class);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        adapter.setTodoList(viewModel.getTodoList());
-
+        todoListViewModel = ViewModelProviders.of(this).get(TodoListViewModel.class);
+        todoListViewModel.getAllItems().observe(this, new Observer<List<TodoListItem>>() {
+            @Override
+            public void onChanged(@Nullable List<TodoListItem> todoListItems) {
+                //update RecyclerView
+                Toast.makeText(ViewTodoListActivity.this, "Created", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
