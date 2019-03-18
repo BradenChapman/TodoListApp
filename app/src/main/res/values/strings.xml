@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="edit_message">Add a message</string>
+    <string name="button_send">Send</string>
+    <string name="view_list">View todo list</string>
+    <string name="add_item">Add item to todo list</string>
+    <string name="mark_completed">Mark item as completed</string>
+    <string name="main_header">Todo-List Home</string>
+
+    <string name="title_header">Enter title of todo-list item:</string>
+    <string name="title_hint">Title</string>
+    <string name="description_header">Enter description of item:</string>
+    <string name="description_hint">Description</string>
+    <string name="due_date_header">Enter due date:</string>
+    <string name="due_date_hint">dd/mm/yyyy</string>
+    <string name="add_button">Add item</string>
+</resources>
