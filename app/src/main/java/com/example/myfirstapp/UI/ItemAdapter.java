@@ -32,6 +32,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         viewHolder.title.setText(item.getTitle());
         viewHolder.description.setText(item.getDescription());
         viewHolder.dueDate.setText(item.getDueDate());
+        viewHolder.priority.setText(String.valueOf(item.getPriority()));
     }
 
     @Override
@@ -48,12 +49,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         private TextView title;
         private TextView description;
         private TextView dueDate;
+        private TextView priority;
 
         public MyViewHolder(View view) {
             super(view);
-            title = view.findViewById(R.id.title_text);
-            description = view.findViewById(R.id.description_text);
-            dueDate = view.findViewById(R.id.due_date_text);
+            title = view.findViewById(R.id.text_view_title);
+            description = view.findViewById(R.id.text_view_description);
+            dueDate = view.findViewById(R.id.text_view_due_date);
+            priority = view.findViewById(R.id.text_view_priority);
         }
 
     }

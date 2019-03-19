@@ -24,12 +24,18 @@ public class ViewTodoListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_todolist);
 
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        final ItemAdapter adapter = new ItemAdapter();
+        recyclerView.setAdapter(adapter);
+
         todoListViewModel = ViewModelProviders.of(this).get(TodoListViewModel.class);
         todoListViewModel.getAllItems().observe(this, new Observer<List<TodoListItem>>() {
             @Override
             public void onChanged(@Nullable List<TodoListItem> todoListItems) {
-                //update RecyclerView
-                Toast.makeText(ViewTodoListActivity.this, "Created", Toast.LENGTH_SHORT).show();
+                adapter.setTodoList(todoListItems);
             }
         });
     }
