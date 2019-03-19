@@ -45,6 +45,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         notifyDataSetChanged();
     }
 
+    public TodoListItem getNodeAt(int position) { return todoList.get(position); }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView description;
