@@ -14,4 +14,5 @@
     <string name="due_date_header">Enter due date:</string>
     <string name="due_date_hint">dd/mm/yyyy</string>
     <string name="add_button">Add item</string>
+    <string name="priority_spinner">Select priority:</string>
 </resources>
