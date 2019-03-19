@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the user taps the Add Item button */
     public void addTodoListItem(View view) {
-        Intent intent = new Intent(this, AddItemActivity.class);
+        Intent intent = new Intent(this, AddEditItemActivity.class);
         startActivity(intent);
     }
 

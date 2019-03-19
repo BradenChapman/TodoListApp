@@ -1,6 +1,7 @@
 package com.example.myfirstapp.UI;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AddItemActivity extends AppCompatActivity {
+import static android.nfc.NfcAdapter.EXTRA_ID;
+
+public class AddEditItemActivity extends AppCompatActivity {
 
     private EditText titleField;
     private EditText descriptionField;
@@ -47,6 +50,16 @@ public class AddItemActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         prioritySpinner.setAdapter(adapter);
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("EXTRA_ID")) {
+            setTitle("Edit Item");
+            titleField.setText(intent.getStringExtra("EXTRA_TITLE"));
+            descriptionField.setText(intent.getStringExtra("EXTRA_DESCRIPTION"));
+            dueDateField.setText(intent.getStringExtra("EXTRA_DUE_DATE"));
+            prioritySpinner.setSelection(intent.getIntExtra("EXTRA_ID", 1));
+        } else {
+            setTitle("Add Todo List Item");
+        }
 
         viewModel = ViewModelProviders.of(this).get(TodoListViewModel.class);
     }
@@ -63,7 +76,13 @@ public class AddItemActivity extends AppCompatActivity {
         }
 
         TodoListItem item = new TodoListItem(title, description, dueDate, false, Integer.valueOf(priority));
-        viewModel.insert(item);
+        int id = getIntent().getIntExtra("EXTRA_ID", -1);
+        if (id != -1) {
+            item.setId(id);
+            viewModel.update(item);
+        } else {
+            viewModel.insert(item);
+        }
 
         finish();
 

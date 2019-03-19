@@ -1,8 +1,8 @@
 package com.example.myfirstapp.UI;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +13,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.myfirstapp.Model.TodoListItem;
@@ -29,6 +28,7 @@ public class ViewTodoListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_todolist);
+        setTitle("All Items in Todo List");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -58,6 +58,19 @@ public class ViewTodoListActivity extends AppCompatActivity {
                 Toast.makeText(ViewTodoListActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnItemClickListener(new ItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(TodoListItem item) {
+                Intent intent = new Intent(ViewTodoListActivity.this, AddEditItemActivity.class);
+                intent.putExtra("EXTRA_TITLE", item.getTitle());
+                intent.putExtra("EXTRA_DESCRIPTION", item.getDescription());
+                intent.putExtra("EXTRA_PRIORITY", item.getPriority());
+                intent.putExtra("EXTRA_DUE_DATE", item.getDueDate());
+                intent.putExtra("EXTRA_ID", item.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -5,4 +5,5 @@
         android:id="@+id/delete_all_items"
         android:title="Delete all items"
         app:showAsAction="never" />
+
 </menu>

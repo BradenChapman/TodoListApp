@@ -16,6 +16,7 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
     private List<TodoListItem> todoList = new ArrayList<>();
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -59,7 +60,25 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             description = view.findViewById(R.id.text_view_description);
             dueDate = view.findViewById(R.id.text_view_due_date);
             priority = view.findViewById(R.id.text_view_priority);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(todoList.get(position));
+                    }
+                }
+            });
         }
 
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(TodoListItem item);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }
