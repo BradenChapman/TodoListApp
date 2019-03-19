@@ -41,7 +41,7 @@ public class ViewTodoListActivity extends AppCompatActivity {
         todoListViewModel.getAllItems().observe(this, new Observer<List<TodoListItem>>() {
             @Override
             public void onChanged(@Nullable List<TodoListItem> todoListItems) {
-                adapter.setTodoList(todoListItems);
+                adapter.submitList(todoListItems);
             }
         });
 

@@ -1,6 +1,8 @@
 package com.example.myfirstapp.UI;
 
 import android.support.annotation.NonNull;
+import android.support.v7.recyclerview.extensions.ListAdapter;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
-    private List<TodoListItem> todoList = new ArrayList<>();
+public class ItemAdapter extends ListAdapter<TodoListItem, ItemAdapter.MyViewHolder> {
     private OnItemClickListener listener;
+
+    public ItemAdapter() {
+        super(DIFF_CALLBACK);
+    }
+
+    private static final DiffUtil.ItemCallback<TodoListItem> DIFF_CALLBACK = new DiffUtil.ItemCallback<TodoListItem>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull TodoListItem todoListItem, @NonNull TodoListItem t1) {
+            return todoListItem.getId() == t1.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull TodoListItem todoListItem, @NonNull TodoListItem t1) {
+            return todoListItem.getTitle().equals(t1.getTitle()) &&
+                    todoListItem.getDescription().equals(t1.getDescription()) &&
+                    todoListItem.getDueDate().equals(t1.getDueDate()) &&
+                    todoListItem.getPriority() == t1.getPriority();
+        }
+    };
 
     @NonNull
     @Override
@@ -28,7 +48,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.MyViewHolder viewHolder, int i) {
-        TodoListItem item = todoList.get(i);
+        TodoListItem item = getItem(i);
 
         viewHolder.title.setText(item.getTitle());
         viewHolder.description.setText(item.getDescription());
@@ -36,17 +56,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         viewHolder.priority.setText(String.valueOf(item.getPriority()));
     }
 
-    @Override
-    public int getItemCount() {
-        return todoList.size();
-    }
-
-    public void setTodoList(List<TodoListItem> list) {
-        todoList = list;
-        notifyDataSetChanged();
-    }
-
-    public TodoListItem getNodeAt(int position) { return todoList.get(position); }
+    public TodoListItem getNodeAt(int position) { return getItem(position); }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
@@ -66,7 +76,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(todoList.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });
