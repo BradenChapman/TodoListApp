@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("All Your ToDo Lists");
+        setTitle("All Items in Your ToDo List");
 
         RecyclerView recyclerView = findViewById(R.id.list_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 todoListViewModel.delete(adapter.getNodeAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(MainActivity.this, "List deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
 
