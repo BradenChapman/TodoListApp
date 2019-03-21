@@ -3,17 +3,17 @@ package com.example.myfirstapp.UI;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.myfirstapp.Model.TodoListItem;
@@ -21,16 +21,16 @@ import com.example.myfirstapp.R;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ViewTodoListActivity extends AppCompatActivity {
     private TodoListViewModel todoListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setTitle("All Your ToDo Lists");
+        setContentView(R.layout.activity_view_todo_list);
+        setTitle("All Items in ToDo List");
 
-        RecyclerView recyclerView = findViewById(R.id.list_list);
+        RecyclerView recyclerView = findViewById(R.id.item_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
@@ -55,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 todoListViewModel.delete(adapter.getNodeAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(MainActivity.this, "List deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewTodoListActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
 
         adapter.setOnItemClickListener(new ItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(TodoListItem item) {
-                Intent intent = new Intent(MainActivity.this, AddEditItemActivity.class);
+                Intent intent = new Intent(ViewTodoListActivity.this, AddEditItemActivity.class);
                 intent.putExtra("EXTRA_TITLE", item.getTitle());
                 intent.putExtra("EXTRA_DESCRIPTION", item.getDescription());
                 intent.putExtra("EXTRA_PRIORITY", item.getPriority() - 1);
@@ -93,13 +93,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    /** Called when the user taps the Add Item button */
-    public void addTodoListItem(View view) {
-        Intent intent = new Intent(this, AddEditItemActivity.class);
-        startActivity(intent);
-    }
-
-
 
 }

@@ -43,9 +43,6 @@ public abstract class TodoListItemDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            itemDao.insert(new TodoListItem("Go to class1", "Actually be there1", "22/03/2019", false, 1));
-            itemDao.insert(new TodoListItem("Go to class2", "Actually be there2", "22/03/2019", false, 2));
-            itemDao.insert(new TodoListItem("Go to class3", "Actually be there3", "22/03/2019", false, 3));
             return null;
         }
     }
