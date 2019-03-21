@@ -56,7 +56,7 @@ public class AddEditItemActivity extends AppCompatActivity {
             titleField.setText(intent.getStringExtra("EXTRA_TITLE"));
             descriptionField.setText(intent.getStringExtra("EXTRA_DESCRIPTION"));
             dueDateField.setText(intent.getStringExtra("EXTRA_DUE_DATE"));
-            prioritySpinner.setSelection(intent.getIntExtra("EXTRA_ID", 1));
+            prioritySpinner.setSelection(intent.getIntExtra("EXTRA_PRIORITY", 1));
         } else {
             setTitle("Add Todo List Item");
         }
